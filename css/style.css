@@ -49,6 +49,10 @@ input[type="text"] {
     font-weight: 600;
 }
 
+input[type="text"]:focus {
+    outline: 0;
+}
+
 button {
     width: 55px;
     height: 45px;
@@ -61,6 +65,22 @@ button {
     transition: 0.2s ease-in-out;
 }
 
+.ligth button:active {
+    background-color: #F4AA60;
+    color: white;
+}
+
+.dark button:active {
+    background-color: #56B18E;
+    color: white;
+}
+
+
+/*------------------------------------------
+CLASES PARA EL BACKGROUND  DEL MODO OSCURO 
+Y DIURNO 
+-------------------------------------------*/
+
 .ligth {
     color: black;
     background-color: #DCDCDE;
@@ -69,6 +89,9 @@ button {
 .dark {
     background-color: #030F31;
 }
+
+
+/*-----------------------------------------*/
 
 button.numero.dark {
     color: white;
@@ -86,7 +109,8 @@ button.numero:after {
     opacity: 0.2;
 }
 
-ligth button:focus {
+.ligth button,
+.dark button:focus {
     outline: 0;
 }
 
@@ -96,10 +120,6 @@ ligth button:focus {
 
 .alter {
     color: #F4AA60;
-}
-
-.grid-item input:focus {
-    outline: 0;
 }
 
 .grid-item.grid-header,
@@ -136,6 +156,7 @@ ligth button:focus {
     display: flex;
     align-items: center;
     padding-left: 10px;
+    /* transition: 0.3s ease-in-out; */
 }
 
 .modo i {
@@ -158,6 +179,9 @@ ligth button:focus {
     transition: 0.2s ease-in-out;
 }
 
+
+/* redondeo el sswitcher y le doy otros estilos */
+
 .switchs label {
     background-color: #56B18E;
     border-radius: 50%;
@@ -168,11 +192,25 @@ ligth button:focus {
     transition: transform 0.3s ease-in-out;
 }
 
+
+/* oculto el checkbox solo que se vea el label redondeado */
+
 input[type="checkbox"] {
     visibility: hidden;
 }
 
+
+/*  cuando está cheked lo muevo 30px a la derecha y lo  */
+
 .switchs input[type="checkbox"]:checked+label {
     background-color: #F4AA60;
     transform: translateX(30px);
+}
+
+@media(max-width:768px) {
+    .modo {
+        position: absolute;
+        top: 0;
+        text-align: center;
+    }
 }
