@@ -1,0 +1,178 @@
+/* colores de la calculadora
+
+  operaciones #F2933B
+  alter: #A7A7A7
+  fondo container: #F4AA60
+  fondo-grid:#DCDCDE
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: #F4AA60;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    width: auto;
+    padding: 10px;
+    background: #DCDCDE;
+    border-radius: 20px;
+    text-align: center;
+    padding: 30px;
+    transition: 0.2s ease-in-out;
+}
+
+input[type="text"] {
+    width: 100%;
+    height: 80px;
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 1.3rem;
+    text-align: right;
+    padding-right: 5px;
+    margin-bottom: 50px;
+    font-weight: 600;
+}
+
+button {
+    width: 55px;
+    height: 45px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 5px #999;
+    position: relative;
+    transition: 0.2s ease-in-out;
+}
+
+.ligth {
+    color: black;
+    background-color: #DCDCDE;
+}
+
+.dark {
+    background-color: #030F31;
+}
+
+button.numero.dark {
+    color: white;
+}
+
+button.numero:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 7px 7px 5px #999;
+    border-radius: 10px;
+    opacity: 0.2;
+}
+
+ligth button:focus {
+    outline: 0;
+}
+
+.opera {
+    color: #56B18E
+}
+
+.alter {
+    color: #F4AA60;
+}
+
+.grid-item input:focus {
+    outline: 0;
+}
+
+.grid-item.grid-header,
+.grid-item.grid-header-footer,
+.grid-item.grid-header-resultado {
+    grid-column: 1/5;
+    width: 100%;
+    padding: 0;
+}
+
+.grid-header-footer {
+    border-bottom: 1px solid#ADB1BA;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    color: #56B18E;
+}
+
+.grid-header-resultado {
+    text-align: end;
+    font-size: 1.3rem;
+    color: grey;
+}
+
+.grid-header-footer .header-icon {
+    color: #ADB1BA;
+    letter-spacing: 2px;
+}
+
+
+/* EFECTOS DEL SWITCHER */
+
+.modo {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.modo i {
+    font-size: 1.5rem;
+}
+
+.modo i:nth-of-type(odd) {
+    color: white;
+}
+
+.switchs {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 60px;
+    height: 30px;
+    margin: 20px 20px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 5px #999;
+    transition: 0.2s ease-in-out;
+}
+
+.switchs label {
+    background-color: #56B18E;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 28px;
+    position: absolute;
+    width: 28px;
+    transition: transform 0.3s ease-in-out;
+}
+
+input[type="checkbox"] {
+    visibility: hidden;
+}
+
+.switchs input[type="checkbox"]:checked+label {
+    background-color: #F4AA60;
+    transform: translateX(30px);
+}

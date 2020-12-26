@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="grid-container">
+            <div class="grid-item grid-header">
+                <input type="text" maxlength="10" name="datos" class="datos" id="datos" placeholder="10+1">
+            </div>
+            <div class="grid-item grid-header-resultado">
+                <span>11</span>
+            </div>
+            <div class="grid-item grid-header-footer">
+                <span class="header-icon">
+                    <i class="fas fa-clock"></i>
+                    <i class="fas fa-square-root-alt"></i>
+                    <i class="fas fa-ruler-horizontal"></i>
+                </span>
+                <span><i class="fas fa-backspace"></i></span>
+            </div>
+            <div class="grid-item"><button class=" btn alter  ligth">c</button></div>
+            <div class="grid-item"><button class=" btn opera ligth">( )</button></div>
+            <div class="grid-item"><button class=" btn opera ligth">%</button></div>
+            <div class="grid-item"><button class=" btn opera ligth">÷</button></div>
+            <div class="grid-item"><button class=" btn numero ligth">7</button></div>
+            <div class="grid-item"><button class=" btn numero ligth">8</button></div>
+            <div class="grid-item"><button class=" btn numero ligth">9</button></div>
+            <div class="grid-item"><button class=" btn opera ligth">x</button></div>
+            <div class="grid-item"><button class=" btn numero ligth">4</button></div>
+            <div class="grid-item"><button class=" btn numero ligth">5</button></div>
+            <div class="grid-item"><button class=" btn numero ligth">6</button></div>
+            <div class="grid-item"><button class=" btn opera ligth">-</button></div>
+            <div class="grid-item"><button class=" btn numero ligth">1</button></div>
+            <div class="grid-item"><button class=" btn numero ligth">2</button></div>
+            <div class="grid-item"><button class=" btn numero ligth">3</button></div>
+            <div class="grid-item"><button class=" btn opera ligth">+</button></div>
+            <div class="grid-item"><button class="btn numero ligth">+/-</button></div>
+            <div class="grid-item"><button class="btn numero ligth">0</button></div>
+            <div class="grid-item"><button class="btn numero ligth">.</button></div>
+            <div class="grid-item"><button class="btn opera ligth">=</button></div>
+        </div>
+        <div class="modo">
+            <i class="fas fa-sun"></i>
+            <div class="switchs ligth">
+                <input type="checkbox" name="" id="darkmode">
+                <label for="darkmode"></label>
+            </div>
+            <i class="fas fa-moon"></i>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
