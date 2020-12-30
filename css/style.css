@@ -1,7 +1,6 @@
 /* colores de la calculadora
 
-  operaciones #F2933B
-  alter: #A7A7A7
+  
   fondo container: #F4AA60
   fondo-grid:#DCDCDE
 */
@@ -36,6 +35,10 @@
     transition: 0.2s ease-in-out;
 }
 
+.grid-container.dark .grid-header input[type="text"] {
+    color: #DCDCDE
+}
+
 input[type="text"] {
     width: 100%;
     height: 80px;
@@ -48,6 +51,10 @@ input[type="text"] {
     margin-bottom: 50px;
     font-weight: 600;
 }
+
+
+/* me quita los controles que salen en el campo
+ numnber en al gunos navegadores */
 
 input[type="text"]:focus {
     outline: 0;
@@ -63,14 +70,15 @@ button {
     box-shadow: 2px 2px 5px #999;
     position: relative;
     transition: 0.2s ease-in-out;
+    outline: 0;
 }
 
-.ligth button:active {
+button.ligth:active {
     background-color: #F4AA60;
     color: white;
 }
 
-.dark button:active {
+button.dark:active {
     background-color: #56B18E;
     color: white;
 }
@@ -93,11 +101,13 @@ Y DIURNO
 
 /*-----------------------------------------*/
 
-button.numero.dark {
+button.numero.dark,
+button.ope2.dark {
     color: white;
 }
 
-button.numero:after {
+button.numero:after,
+.ope2:after {
     content: '';
     position: absolute;
     top: 0;
@@ -204,7 +214,7 @@ input[type="checkbox"] {
 
 .switchs input[type="checkbox"]:checked+label {
     background-color: #F4AA60;
-    transform: translateX(30px);
+    transform: translateX(33px);
 }
 
 @media(max-width:768px) {
