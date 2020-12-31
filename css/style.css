@@ -133,7 +133,6 @@ button.numero:after,
 }
 
 .grid-item.grid-header,
-.grid-item.grid-header-footer,
 .grid-item.grid-header-resultado {
     grid-column: 1/5;
     width: 100%;
@@ -144,8 +143,12 @@ button.numero:after,
     border-bottom: 1px solid#ADB1BA;
     display: flex;
     justify-content: space-between;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: #56B18E;
+    position: relative;
+    grid-column: 1/5;
+    padding: 0 0 10px 0;
+    ;
 }
 
 .grid-header-resultado {
@@ -160,7 +163,9 @@ button.numero:after,
 }
 
 
-/* EFECTOS DEL SWITCHER */
+/* -------------------------------
+        EFECTOS DEL SWITCHER 
+----------------------------------*/
 
 .modo {
     display: flex;
@@ -216,6 +221,11 @@ input[type="checkbox"] {
     background-color: #F4AA60;
     transform: translateX(33px);
 }
+
+
+/* -------------------------------
+     FIN DE  EFECTOS DEL SWITCHER 
+----------------------------------*/
 
 @media(max-width:768px) {
     .modo {

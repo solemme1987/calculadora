@@ -19,17 +19,12 @@ function cargarEventListeners() {
 
 function capturarNumerosDeCalculadora(e) {
 
-
     // CAPTURO SOLO LOS DATOS SOLO SI ES UN NUMERO
     if (e.target.classList.contains('btn')) {
-        // le asigno a dato lo que esta en el campo de texto 
+
         let dato = campoDatos.value;
-
-        //  ESTA PENDIENTE CON EL IF COMENTADO ABAJO
-        let opera = ['x', '-', '+', '÷'];
-
-
-
+        let opera = ['x', '-', '+', '÷', '%', '.'];
+        let operaEspecial = ['=', '+/-', '÷', '( )'];
 
         // Si la letra es diferente de c y a = que  
         // agregue el valor del boton
@@ -49,12 +44,27 @@ function capturarNumerosDeCalculadora(e) {
             campoDatos.value = '';
         }
 
-        // if (campoDatos.value ! && e.target.classList.contains('opera')) {
-        //     let operacion=e.target.innerHTML;
-        //     console.log(campoDatos.value);
-        //     console.log(campoDatos.value.slice(-1));
-        //     console.log(campoDatos.value.slice(0, -1));
-        // }
+        // ESTE IF ME CONTROLA QUE NO SE COLOQUEN 2 SIGNOS DE OPERACION UNO AL LADO DE OTRO
+        if (opera.indexOf(dato.slice(-1)) >= 0 && e.target.classList.contains('opera')) {
+
+            //no se permite un signo de operacion y luego un signo de % porcentaje 
+            // esa operacion da error
+            if (dato.slice(-1) != '%' && e.target.innerHTML == '%') {
+                console.log('operacion no valida');
+                let nuevo = campoDatos.value.slice(0, -1);
+                campoDatos.value = nuevo;
+                return false;
+            } else { //si agregamos una operacion seguida  de otra operacion ej:*+
+                //  elimino los 2 signos y dejo solo el ultimo que ingresé
+
+                let operacion = e.target.innerHTML;
+
+                let nuevo = campoDatos.value.slice(0, -2).concat(operacion);
+
+                campoDatos.value = nuevo;
+            }
+        }
+
     }
 
 }
