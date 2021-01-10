@@ -1,9 +1,19 @@
 /* colores de la calculadora
-
+  
+  REFERENCIAS NEUMORFISMO:https://www.youtube.com/watch?v=dBlr5gYeGAc&ab_channel=LupitaCoding
   
   fondo container: #F4AA60
   fondo-grid:#DCDCDE
+
+  ligth shadow:#FFFFFF (X:-9px, Y:-9px, blur:16px)
+  DARK SHADOW: #A3B1C6 (X:-9px, Y:-9px, blur:16px)
+  MAIN BACKGROUND AND ELEMENT COLOR:#E0E5EC
+
 */
+
+:root {
+    --background: #E0E5EC;
+}
 
 * {
     margin: 0;
@@ -33,6 +43,7 @@
     text-align: center;
     padding: 30px;
     transition: 0.2s ease-in-out;
+    overflow: hidden;
 }
 
 .grid-container.dark .grid-header input[type="text"] {
@@ -68,6 +79,7 @@ button {
     font-size: 1.2rem;
     text-transform: uppercase;
     box-shadow: 2px 2px 5px #999;
+    /* box-shadow: 5px 5px 16px rgba(163, 177, 198, 0.6), -5px -5px 16px rgba(255, 255, 255, 0.5); */
     position: relative;
     transition: 0.2s ease-in-out;
     outline: 0;
@@ -114,7 +126,7 @@ button.numero:after,
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: inset 7px 7px 5px #999;
+    box-shadow: inset 7px 7px 16px #999;
     border-radius: 10px;
     opacity: 0.2;
 }
@@ -124,7 +136,9 @@ button.numero:after,
     outline: 0;
 }
 
-.opera {
+.opera,
+.igual,
+.ope2 {
     color: #56B18E
 }
 
@@ -148,7 +162,6 @@ button.numero:after,
     position: relative;
     grid-column: 1/5;
     padding: 0 0 10px 0;
-    ;
 }
 
 .grid-header-resultado {
@@ -161,6 +174,149 @@ button.numero:after,
     color: #ADB1BA;
     letter-spacing: 2px;
 }
+
+
+/* -------------------------------
+        PANEL HISTORIAL
+----------------------------------*/
+
+
+/* panel del historial de operaciones 
+ este es el panel que contiene la lista y
+  el boton del historial */
+
+.grid-container .panel_historial {
+    position: absolute;
+    width: 225px;
+    height: 322px;
+    top: 45%;
+    margin-left: -3px;
+    overflow: hidden;
+    transition: 0.2s ease-in-out;
+}
+
+
+/* Cuando preciono el boton de historial coloco la capa del panel 
+que se visualice sobro todas las demas. pense utilizar  display none y block
+pero el efecto creado se pierde */
+
+.grid-container .panel_historial.mostrar {
+    z-index: 10000;
+}
+
+
+/* doy forma y stilo a la lista del historial */
+
+.grid-container .panel_historial ul {
+    position: relative;
+    background: #DCDCDE;
+    padding: 20px 10px;
+    left: -100%;
+    max-height: 265px;
+    min-height: 265px;
+    transition: 0.2s ease-in-out;
+    text-align: end;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+
+/* le coloco left en 0 para que aparezca */
+
+.grid-container .panel_historial ul.verHistorial {
+    left: 0;
+}
+
+
+/* Doy estilo a las etiquetas p que me muestran 
+la operacion y el resultado en el historial */
+
+.grid-container .panel_historial ul li p {
+    margin: 5px;
+    padding: 3px;
+    font-size: 1rem;
+    color: #9699a0;
+}
+
+
+/* Le doy color verde al resultado de la operacion 
+en el panel del historial*/
+
+.grid-container .panel_historial ul li p:nth-child(2) {
+    color: #56B18E;
+}
+
+
+/* aqui le doy estilos al div que contiene  e
+l boton para borrar el historial */
+
+.grid-container .panel_historial .box_btn_borrar_historial {
+    position: relative;
+    left: -100%;
+    background: #DCDCDE;
+    width: 100%;
+    height: 55px;
+    transition: 0.2s ease-in-out;
+}
+
+
+/* le doy  left 0 cuando para que se muestre  
+de izquierda a derecha cuando le doy  clic en el boton que activa el historial
+la caja del boton la puse serparada de la lista para poder copiar 
+el efecto de la calculadora samnsung
+ */
+
+.grid-container .box_btn_borrar_historial.scroll {
+    left: 0;
+}
+
+
+/* Estilos al BOTON del historial */
+
+.grid-container .panel_historial .box_btn_borrar_historial .btn_borrar_historial {
+    width: 200px;
+    height: 35px;
+    color: white;
+    background: #56B18E;
+    margin-top: 10px;
+    border-radius: 20px;
+    text-transform: capitalize;
+    font-size: 1rem;
+}
+
+
+/* AGREGANDO ESTILO AL SCROLL DEL PANEL DE LA LISTA  */
+
+.grid-container .panel_historial ul::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.grid-container .panel_historial ul::-webkit-scrollbar:vertical {
+    width: 2px;
+}
+
+.grid-container .panel_historial ul::-webkit-scrollbar-button:increment,
+.grid-container .panel_historial ul::-webkit-scrollbar-button {
+    display: none;
+}
+
+.grid-container .panel_historial ul::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.grid-container .panel_historial ul::-webkit-scrollbar-thumb {
+    background-color: rgb(204, 200, 200);
+    border-radius: 20px;
+}
+
+.grid-container .panel_historial ul::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+
+/* -------------------------------
+       FIN  PANEL HISTORIAL
+----------------------------------*/
 
 
 /* -------------------------------
@@ -201,10 +357,12 @@ button.numero:after,
     background-color: #56B18E;
     border-radius: 50%;
     cursor: pointer;
-    height: 28px;
+    height: 25px;
     position: absolute;
-    width: 28px;
+    width: 25px;
     transition: transform 0.3s ease-in-out;
+    margin-left: 3px;
+    align-items: center;
 }
 
 
@@ -219,7 +377,7 @@ input[type="checkbox"] {
 
 .switchs input[type="checkbox"]:checked+label {
     background-color: #F4AA60;
-    transform: translateX(33px);
+    transform: translateX(30px);
 }
 
 

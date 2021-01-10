@@ -25,16 +25,50 @@
             <!-- BOTON DE RETROCESO E ICONOS -->
             <div class="grid-item grid-header-footer">
                 <span class="header-icon">
-                    <i class="fas fa-clock"></i>
+                    <i class="fas fa-clock btn_historial" id="btn_historial"></i>
                     <i class="fas fa-square-root-alt"></i>
                     <i class="fas fa-ruler-horizontal"></i>
                 </span>
                 <span id="borrar" class="borrar"><i class="fas fa-backspace"></i></span>
             </div>
 
-            <!-- BOTONES DE OPERACIONES Y NUMEROS -->
+            <!-- PANEL DE HISTORIAL DE OPERACIONES-->
+            <div class="panel_historial" id='panel_historial'>
+                <ul id='lista_historial'>
+                    <li>
+                        <p class="historial_item_operacion">25+9x(2+9)</p>
+                        <p class="historial_item_resultado">=124</p>
+                        <hr>
+                    </li>
+                    <li>
+                        <p class="historial_item_operacion">25+9x(2+9)</p>
+                        <p class="historial_item_resultado">=124</p>
+                        <hr>
+                    </li>
+                    <li>
+                        <p class="historial_item_operacion">25+9x(2+9)</p>
+                        <p class="historial_item_resultado">=124</p>
+                        <hr>
+                    </li>
+                    <li>
+                        <p class="historial_item_operacion">25+9x(2+9)</p>
+                        <p class="historial_item_resultado">=124</p>
+                        <hr>
+                    </li>
+                    <li>
+                        <p class="historial_item_operacion">25+9x(2+9)</p>
+                        <p class="historial_item_resultado">=124</p>
+                        <hr>
+                    </li>
+
+                </ul>
+
+                <div class="box_btn_borrar_historial" id="box_borrar_historial">
+                    <button class="btn_borrar_historial">Eliminar historial</button>
+                </div>
+            </div>
             <div class="grid-item"><button class=" btn alter  ligth">c</button></div>
-            <div class="grid-item"><button class=" btn opera  ligth">()</button></div>
+            <div class="grid-item"><button class=" btn opera parentesis  ligth">()</button></div>
             <div class="grid-item"><button class=" btn opera  ligth">%</button></div>
             <div class="grid-item"><button class=" btn opera  ligth">÷</button></div>
             <div class="grid-item"><button class=" btn numero ligth">7</button></div>
@@ -52,7 +86,7 @@
             <div class="grid-item"><button class=" btn opera ope2 ligth">+/-</button></div>
             <div class="grid-item"><button class=" btn numero ligth">0</button></div>
             <div class="grid-item"><button class=" btn opera ope2 ligth">.</button></div>
-            <div class="grid-item"><button class=" btn opera ligth">=</button></div>
+            <div class="grid-item"><button class=" btn  ligth  igual">=</button></div>
         </div>
         <div class="modo">
             <i class="fas fa-sun"></i>

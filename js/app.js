@@ -2,45 +2,63 @@
 const botones = document.querySelectorAll('.btn');
 const switchs = document.querySelector('.switchs');
 const dark = document.getElementById('darkmode');
+const btnHistorial = document.getElementById('btn_historial');
+const listaHistorial = document.getElementById('lista_historial');
+const panelHistorial = document.getElementById('panel_historial');
+
+const borrarHistorial = document.getElementById('box_borrar_historial');
+
 const calculadora = document.querySelector('#calculadora');
+
+
 let campoDatos = document.querySelector('#datos');
 let resultado = document.querySelector('#resultado');
 let borrarDato = document.querySelector('#borrar');
 
+let numeros = "0123456789";
+let teclasValidas = [8, 37, 39, 56, 57];
+
+let opera = ['x', '-', '+', '÷', '%', '.'];
+let operaEspecial = ['+/-', '÷', '()'];
+let aperturaParen = 0;
+let cierreParen = 0;
+let cantidadDecimal = 0;
 
 cargarEventListeners();
 campoDatos.addEventListener('keydown', capturarTeclas);
 
 function cargarEventListeners() {
-    calculadora.addEventListener('click', capturarNumerosDeCalculadora);
+    calculadora.addEventListener('click', capturarBotonesCalculadora);
     campoDatos.addEventListener('keydown', capturarTeclas);
     borrarDato.addEventListener('mousedown', retroceso);
+    btnHistorial.addEventListener('click', mostrarHistorial);
 }
 
-function capturarNumerosDeCalculadora(e) {
+function capturarBotonesCalculadora(e) {
 
-    // CAPTURO SOLO LOS DATOS SOLO SI ES UN NUMERO
+    // CAPTURO SOLO LOS DATOS SOLO SI ES UN BOTON
     if (e.target.classList.contains('btn')) {
 
         let dato = campoDatos.value;
-        let opera = ['x', '-', '+', '÷', '%', '.'];
-        let operaEspecial = ['=', '+/-', '÷', '( )'];
 
         // Si la letra es diferente de c y a = que  
         // agregue el valor del boton
         if (e.target.innerHTML != 'c' && e.target.innerHTML != '=') {
             campoDatos.value += e.target.innerHTML;
         }
-        // Si la letra es igual a c 
+        // Si la letra es igual a "c" (clear)
         // que borre todo lo de la calculadora
         if (e.target.innerHTML == 'c') {
+            aperturaParen = 0;
+            cierreParen = 0;
             campoDatos.value = '';
         }
         //  si el campo está vacio y estoy enviando el botón 
         //  de una operación, pues que  no me agregue ninguna 
         //  dato al campo de texto siempre y cuano no halla
         // algun numero  escrito primeramente
-        if (e.target.classList.contains('opera') && dato == '') {
+        //solo permite los parentesis
+        if (e.target.classList.contains('opera') && dato == '' && e.target.innerHTML != '()') {
             campoDatos.value = '';
         }
 
@@ -62,22 +80,94 @@ function capturarNumerosDeCalculadora(e) {
                 let nuevo = campoDatos.value.slice(0, -2).concat(operacion);
 
                 campoDatos.value = nuevo;
+                if (dato.slice(-1) == '(' && e.target.innerHTML == '%') {
+                    console.log('operacion no valida');
+                    let nuevo = campoDatos.value.slice(0, -1);
+                    campoDatos.value = nuevo;
+                    return false;
+                }
             }
+
+
+        }
+
+
+        /*VALIDANDO QUE NO HALLA UN %,x,÷ DESPUES DE UN PARENTESIS ABIERTO
+        ESTAS OPERACINES NO ESTÁN PERMITIDAS COLOCARSE JUSTO DESPUES DE LA
+        APERTURA DE UN PARENTESIS */
+
+        if (campoDatos.value.length > 0) {
+
+            let noPermitidas = ['%', 'x', '÷'];
+
+            if (campoDatos.value[campoDatos.value.length - 2] == '(' && noPermitidas.indexOf(e.target.innerHTML) >= 0) {
+
+                campoDatos.value = campoDatos.value.slice(0, -1);
+                console.log('Operación no valida ');
+
+            }
+
+            // VALIDACION DEL PUNTO EN EL PARENTESIS
+            if (campoDatos.value.slice(0, -1) == '(' && e.target.innerHTML == '.') {
+                campoDatos.value = campoDatos.value.slice(0, -1).concat('0.');
+                console.log(campoDatos.value);
+            }
+            if (campoDatos.value.slice(-3, 0) == '(0.') {
+                console.log(campoDatos.value.slice(-3, 0));
+                console.log(e.target);
+                if (e.target.classList.contains('numero')) {
+                    console.log('esta ingresando numeros despues de un punto');
+                }
+            }
+
+        }
+
+        // VALIDACION DEL PUNTO 
+        if (campoDatos.value.length == 0 && e.target.innerHTML == '.') {
+            campoDatos.value = campoDatos.value.slice(0, -1).concat('0.');
+            console.log(campoDatos.value);
+        }
+
+
+
+        // VALIDACION DE DE LA CAPTURA DEL PARENTESIS
+        if (e.target.classList.contains('parentesis')) {
+
+
+            campoDatos.value = campoDatos.value.slice(0, -2);
+
+            if (campoDatos.value == '' || campoDatos.value.slice(-1) == '(' || cierreParen >= aperturaParen) {
+
+                aperturaParen++;
+                campoDatos.value += '(';
+
+            } else if (numeros.indexOf(campoDatos.value.slice(-1) >= 0)) {
+                cierreParen++;
+                campoDatos.value += ')';
+            }
+
+            if (cierreParen == aperturaParen) {
+
+                aperturaParen = 0;
+                cierreParen = 0;
+                campoDatos.value += 'x';
+
+            }
+
+
         }
 
     }
 
 }
 
+// CAPTURO LAS TECLAS VALIDS DESDE EL TECLADO
 function capturarTeclas(e) {
 
     console.log(`"${e.key}": ${e.keyCode}`);
-
-    let numeros = "0123456789";
-    let teclasOperaciones = [8, ];
     let teclas = e.key;
 
-    if (numeros.indexOf(teclas) == -1 && e.keyCode != 8) {
+    if (numeros.indexOf(teclas) == -1 && teclasValidas.indexOf(e.keyCode) == -1) {
         e.preventDefault();
         return false;
     }
@@ -87,13 +177,52 @@ function capturarTeclas(e) {
 // BORRAR EL ULTIMO CARACTER INGRESADO CON EL BOTON 
 // BORRAR O RETROCESO DE LA CALCULADORA
 function retroceso(e) {
+
+
     let tamano = campoDatos.value.length;
     let borrado = campoDatos.value.slice(0, tamano - 1);
     campoDatos.value = borrado;
 
+    /**VALIDAMOS QUE CUANDO BORREMOS CON EL BOTON RETROCESO DE LA 
+     * CALCULADORA  LA CANTIDAD DE PARENTESIS  SE VAYA SUMANDO O RESTANDO PARA QUE 
+     * SIGA EL FLUJO NORMAL DE LA ESCRITURA DE PARENTESIS*/
+    let listOpenParent = [];
+    let listCloseParent = [];
+
+    for (let i = 0; i < campoDatos.value.length; i++) {
+
+        if (campoDatos.value[i] == "(") {
+            listOpenParent.push(i);
+        } else if (campoDatos.value[i] == ")") {
+            listCloseParent.push(i);
+        }
+
+    }
+    aperturaParen = listOpenParent.length;
+    cierreParen = listCloseParent.length;
+    /**----------------------------------------------------------
+     *       CIERRE DE VALIDACION DE PARENTESIS 
+     * ---------------------------------------------------------*/
 }
 
 
+function mostrarHistorial() {
+
+    listaHistorial.classList.toggle('verHistorial');
+    borrarHistorial.classList.toggle('scroll');
+
+    panelHistorial.classList.toggle('mostrar');
+    // if (panelHistorial.classList.contains('mostrar')) {
+    //     setTimeout(() => {
+    //         panelHistorial.classList.toggle('mostrar');
+    //         console.log(panelHistorial);
+    //     }, 200);
+    // }
+
+
+
+
+}
 
 // ESTA FUNCION ME CAMBIA A MODO OBSCURO LA CALCULADORA
 dark.addEventListener('click', () => {
