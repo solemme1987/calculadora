@@ -209,7 +209,6 @@ pero el efecto creado se pierde */
 
 .grid-container .panel_historial ul {
     position: relative;
-    background: #DCDCDE;
     padding: 20px 10px;
     left: -100%;
     max-height: 265px;
@@ -253,7 +252,6 @@ l boton para borrar el historial */
 .grid-container .panel_historial .box_btn_borrar_historial {
     position: relative;
     left: -100%;
-    background: #DCDCDE;
     width: 100%;
     height: 55px;
     transition: 0.2s ease-in-out;
@@ -282,6 +280,13 @@ el efecto de la calculadora samnsung
     border-radius: 20px;
     text-transform: capitalize;
     font-size: 1rem;
+}
+
+
+/* .grid-container .panel_historial .box_btn_borrar_historial .btn_borrar_historial:active, */
+
+.grid-container .panel_historial button.btn_borrar_historial:hover {
+    background-color: #357059;
 }
 
 
@@ -317,6 +322,29 @@ el efecto de la calculadora samnsung
 /* -------------------------------
        FIN  PANEL HISTORIAL
 ----------------------------------*/
+
+
+/* -------------------------------
+      ERROR
+----------------------------------*/
+
+.error {
+    position: absolute;
+    background: #141518;
+    color: white;
+    padding: 8px 10px;
+    width: 17rem;
+    border-radius: 7px;
+    font-size: 1rem;
+    margin-left: 8px;
+    bottom: 90px;
+    transition: 0.8s ease-in-out;
+    display: none;
+}
+
+.error.visible {
+    display: block;
+}
 
 
 /* -------------------------------

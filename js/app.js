@@ -7,7 +7,7 @@ const listaHistorial = document.getElementById('lista_historial');
 const panelHistorial = document.getElementById('panel_historial');
 
 const borrarHistorial = document.getElementById('box_borrar_historial');
-
+const error = document.getElementById('error');
 const calculadora = document.querySelector('#calculadora');
 
 
@@ -68,10 +68,10 @@ function capturarBotonesCalculadora(e) {
             //no se permite un signo de operacion y luego un signo de % porcentaje 
             // esa operacion da error
             if (dato.slice(-1) != '%' && e.target.innerHTML == '%') {
-                console.log('operacion no valida');
+
                 let nuevo = campoDatos.value.slice(0, -1);
                 campoDatos.value = nuevo;
-                return false;
+                mostrarError();
             } else { //si agregamos una operacion seguida  de otra operacion ej:*+
                 //  elimino los 2 signos y dejo solo el ultimo que ingresé
 
@@ -104,6 +104,7 @@ function capturarBotonesCalculadora(e) {
 
                 campoDatos.value = campoDatos.value.slice(0, -1);
                 console.log('Operación no valida ');
+                mostrarError();
 
             }
 
@@ -212,16 +213,14 @@ function mostrarHistorial() {
     borrarHistorial.classList.toggle('scroll');
 
     panelHistorial.classList.toggle('mostrar');
-    // if (panelHistorial.classList.contains('mostrar')) {
-    //     setTimeout(() => {
-    //         panelHistorial.classList.toggle('mostrar');
-    //         console.log(panelHistorial);
-    //     }, 200);
-    // }
+}
 
-
-
-
+function mostrarError() {
+    error.classList.toggle('visible');
+    setTimeout(() => {
+        error.classList.toggle('visible');
+    }, 1000);
+    return false;
 }
 
 // ESTA FUNCION ME CAMBIA A MODO OBSCURO LA CALCULADORA
@@ -237,6 +236,11 @@ dark.addEventListener('click', () => {
             switchs.classList.remove('ligth');
             switchs.classList.add('dark');
 
+
+            panelHistorial.classList.remove('ligth');
+            panelHistorial.classList.add('dark');
+
+
         } else {
             boton.classList.remove('dark');
             boton.classList.add('ligth');
@@ -246,6 +250,9 @@ dark.addEventListener('click', () => {
 
             switchs.classList.remove('dark');
             switchs.classList.add('ligth');
+
+            panelHistorial.classList.remove('dark');
+            panelHistorial.classList.add('ligth');
         }
     });
 });
