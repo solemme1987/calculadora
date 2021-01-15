@@ -29,6 +29,9 @@
     width: 100%;
     height: 100vh;
     background: #F4AA60;
+    /* background-image: url('../img/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; */
 }
 
 .grid-container {
@@ -226,6 +229,10 @@ pero el efecto creado se pierde */
     left: 0;
 }
 
+.grid-container .panel_historial ul li {
+    border-bottom: 0.5px solid rgb(204, 200, 200);
+}
+
 
 /* Doy estilo a las etiquetas p que me muestran 
 la operacion y el resultado en el historial */
@@ -287,6 +294,10 @@ el efecto de la calculadora samnsung
 
 .grid-container .panel_historial button.btn_borrar_historial:hover {
     background-color: #357059;
+}
+
+.grid-container .panel_historial button.btn_borrar_historial:active {
+    font-size: 0.9rem;
 }
 
 

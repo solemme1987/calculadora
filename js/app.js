@@ -10,10 +10,9 @@ const borrarHistorial = document.getElementById('box_borrar_historial');
 const error = document.getElementById('error');
 const calculadora = document.querySelector('#calculadora');
 
-
 let campoDatos = document.querySelector('#datos');
-let resultado = document.querySelector('#resultado');
 let borrarDato = document.querySelector('#borrar');
+let resultado = document.querySelector('#resultado');
 
 let numeros = "0123456789";
 let teclasValidas = [8, 37, 39, 56, 57];
@@ -42,22 +41,26 @@ function capturarBotonesCalculadora(e) {
         let dato = campoDatos.value;
 
         // Si la letra es diferente de c y a = que  
-        // agregue el valor del boton
+        // agregue el valor del boton al campo de texto
         if (e.target.innerHTML != 'c' && e.target.innerHTML != '=') {
             campoDatos.value += e.target.innerHTML;
         }
+
         // Si la letra es igual a "c" (clear)
         // que borre todo lo de la calculadora
+        // y me deje en ceros los contadores de parentesis
         if (e.target.innerHTML == 'c') {
             aperturaParen = 0;
             cierreParen = 0;
             campoDatos.value = '';
+            resultado.innerHTML = '0';
         }
+
         //  si el campo está vacio y estoy enviando el botón 
         //  de una operación, pues que  no me agregue ninguna 
         //  dato al campo de texto siempre y cuano no halla
         // algun numero  escrito primeramente
-        //solo permite los parentesis
+        // solo permite los parentesis
         if (e.target.classList.contains('opera') && dato == '' && e.target.innerHTML != '()') {
             campoDatos.value = '';
         }
@@ -90,7 +93,6 @@ function capturarBotonesCalculadora(e) {
 
 
         }
-
 
         /*VALIDANDO QUE NO HALLA UN %,x,÷ DESPUES DE UN PARENTESIS ABIERTO
         ESTAS OPERACINES NO ESTÁN PERMITIDAS COLOCARSE JUSTO DESPUES DE LA
@@ -129,8 +131,6 @@ function capturarBotonesCalculadora(e) {
             console.log(campoDatos.value);
         }
 
-
-
         // VALIDACION DE DE LA CAPTURA DEL PARENTESIS
         if (e.target.classList.contains('parentesis')) {
 
@@ -160,6 +160,11 @@ function capturarBotonesCalculadora(e) {
 
     }
 
+    //ESTE IF LO HAGO DE PRUEBA PARA TRABAJAR LAS OPERACIONES
+    //AL FINAL DEBO DECIDIR SI LO DEJO O NO
+    if (e.target.innerHTML == '=') {
+        calcular();
+    }
 }
 
 // CAPTURO LAS TECLAS VALIDS DESDE EL TECLADO
@@ -206,6 +211,17 @@ function retroceso(e) {
      * ---------------------------------------------------------*/
 }
 
+
+
+function calcular() {
+
+    let operacion = campoDatos.value.replace(/x/g, '*');
+    let respuesta;
+    operacion = operacion.replace(/÷/g, '/');
+    respuesta = eval(operacion);
+    resultado.innerHTML = (respuesta.toString().substr(0, 4));
+    console.log((respuesta));
+}
 
 function mostrarHistorial() {
 
@@ -256,3 +272,56 @@ dark.addEventListener('click', () => {
         }
     });
 });
+
+
+
+// //LOCAL STORAGE
+// // ------------------------------------------
+// // creamos el elemento en local storage
+
+// // localStorage.setItem('nombre');
+
+
+// // creamos este objeto para pasarlo al elemento creado 
+// // en el local storage
+
+// const producto = {
+//     operacion: "ricardo cortes",
+//     resultado: 32
+// };
+
+// let arreglo = [];
+
+// for (let index = 0; index < 20; index++) {
+//     arreglo.push(producto);
+
+// }
+// console.log(arreglo);
+// // convertimos el objeto a texto  para poderlo guardar en local storage
+// const productoString = JSON.stringify(producto);
+
+// // pasamos el objeto convertido al local storage
+// localStorage.setItem('nombre', productoString);
+
+
+// //como traerlos de vuelta
+// let productoJSON = JSON.parse(localStorage.getItem('nombre'));
+
+
+// /** con JSON.parse convertimos un objeto que está en formato texto 
+//  * lo pasamos a formato json para poder trabajarlo con  foreach o for lop
+//  */
+
+// let pOperacion = document.getElementById('pOperacion');
+// let pResultado = document.getElementById('pResultado');
+
+// // console.log(pOperacion);
+
+// console.log(productoJSON.length);
+
+// // productoJSON.forEach(element => {
+// //     console.log(element)
+// // });
+
+// // pOperacion.innerHTML = productoJSON.operacion;
+// // pResultado.innerHTML = productoJSON.resultado;
