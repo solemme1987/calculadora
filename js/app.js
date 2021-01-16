@@ -246,9 +246,16 @@ function calcular() {
     operacion = operacion.replace(/÷/g, '/');
     respuesta = eval(operacion);
 
-    resultado.innerHTML = (respuesta.toString().substr(0, 4));
-    resulHisto = (respuesta.toString().substr(0, 4));
-    campoDatos.value = respuesta;
+    if (respuesta.toString().indexOf('.') == -1) {
+        resultado.innerHTML = respuesta;
+        resulHisto = respuesta;
+    } else {
+        resultado.innerHTML = (respuesta.toString().substr(0, 4));
+        resulHisto = (respuesta.toString().substr(0, 4));
+    }
+
+
+    campoDatos.value = resulHisto;
     guardarHistorial(operaHisto, resulHisto);
 }
 
