@@ -7,7 +7,8 @@
     <title>Calculadora</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <!-- <link rel="stylesheet" href="css/normalize.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -35,36 +36,17 @@
             <!-- PANEL DE HISTORIAL DE OPERACIONES-->
             <div class="panel_historial ligth" id='panel_historial'>
                 <ul id='lista_historial'>
-                    <li>
-                        <p class="historial_item_operacion" id="pOperacion">25+9x(2+9)</p>
-                        <p class="historial_item_resultado" id="pResultado">=124</p>
-                        <!-- <hr> -->
-                    </li>
-                    <li>
-                        <p class="historial_item_operacion">25+9x(2+9)</p>
-                        <p class="historial_item_resultado">=124</p>
-                        <!-- <hr> -->
-                    </li>
-                    <li>
-                        <p class="historial_item_operacion">25+9x(2+9)</p>
-                        <p class="historial_item_resultado">=124</p>
-                        <!-- <hr> -->
-                    </li>
-                    <li>
-                        <p class="historial_item_operacion">25+9x(2+9)</p>
-                        <p class="historial_item_resultado">=124</p>
-                        <!-- <hr> -->
-                    </li>
-                    <li>
-                        <p class="historial_item_operacion">25+9x(2+9)</p>
-                        <p class="historial_item_resultado">=124</p>
-                        <!-- <hr> -->
-                    </li>
+
+                    <div class="historialVacio">
+                        <p><i class="fas fa-box-open"></i></p>
+                        <p class="vacioText">No Hay Historial</p>
+                    </div>
+
 
                 </ul>
 
                 <div class="box_btn_borrar_historial" id="box_borrar_historial">
-                    <button class="btn_borrar_historial">Eliminar historial</button>
+                    <button class="btn_borrar_historial" id="eliminarHistorial">Eliminar historial</button>
                 </div>
             </div>
             <div class="grid-item"><button class=" btn alter  ligth">c</button></div>

@@ -222,6 +222,26 @@ pero el efecto creado se pierde */
     overflow-x: hidden;
 }
 
+.grid-container .panel_historial ul .historialVacio {
+    color: gray;
+    font-size: 5rem;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    margin-top: 30px;
+    flex-direction: column;
+}
+
+.grid-container .panel_historial ul .historialVacio .vacioText {
+    color: gray;
+    font-size: 2rem;
+}
+
+
+/* .historialVacio.visible {
+    display: block;
+} */
+
 
 /* le coloco left en 0 para que aparezca */
 

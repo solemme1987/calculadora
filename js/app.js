@@ -2,17 +2,22 @@
 const botones = document.querySelectorAll('.btn');
 const switchs = document.querySelector('.switchs');
 const dark = document.getElementById('darkmode');
+
 const btnHistorial = document.getElementById('btn_historial');
 const listaHistorial = document.getElementById('lista_historial');
 const panelHistorial = document.getElementById('panel_historial');
 
+
 const borrarHistorial = document.getElementById('box_borrar_historial');
+const btnEliminarHistorial = document.getElementById('eliminarHistorial');
+
 const error = document.getElementById('error');
 const calculadora = document.querySelector('#calculadora');
 
 let campoDatos = document.querySelector('#datos');
 let borrarDato = document.querySelector('#borrar');
 let resultado = document.querySelector('#resultado');
+
 
 let numeros = "0123456789";
 let teclasValidas = [8, 37, 39, 56, 57];
@@ -23,6 +28,9 @@ let aperturaParen = 0;
 let cierreParen = 0;
 let cantidadDecimal = 0;
 
+let historialOperaciones = [];
+
+
 cargarEventListeners();
 campoDatos.addEventListener('keydown', capturarTeclas);
 
@@ -31,6 +39,17 @@ function cargarEventListeners() {
     campoDatos.addEventListener('keydown', capturarTeclas);
     borrarDato.addEventListener('mousedown', retroceso);
     btnHistorial.addEventListener('click', mostrarHistorial);
+
+    // si hay  datos en el local storage  los agrego al arreglo de historial 
+    //  si no ha datos le paso un arreglo vacio
+    document.addEventListener('DOMContentLoaded', () => {
+
+        historialOperaciones = JSON.parse(localStorage.getItem('historial')) || [];
+
+    });
+
+    btnEliminarHistorial.addEventListener('click', eliminarHistorial);
+
 }
 
 function capturarBotonesCalculadora(e) {
@@ -212,26 +231,86 @@ function retroceso(e) {
 }
 
 
-
+// calcular operaciones
 function calcular() {
+
+    let operaHisto = campoDatos.value;
+    let resulHisto;
 
     let operacion = campoDatos.value.replace(/x/g, '*');
     let respuesta;
+
+    // Convierto la operacion en un formato valido
+    // reemplazando los caracteres de multiplicacion y 
+    // division por los correctos
     operacion = operacion.replace(/÷/g, '/');
     respuesta = eval(operacion);
+
     resultado.innerHTML = (respuesta.toString().substr(0, 4));
-    console.log((respuesta));
+    resulHisto = (respuesta.toString().substr(0, 4));
+    campoDatos.value = respuesta;
+    guardarHistorial(operaHisto, resulHisto);
 }
 
+// Guarda el historial
+function guardarHistorial(operaHisto, resulHisto) {
+
+    const historial = {
+        operacion: operaHisto,
+        resultado: resulHisto
+    };
+
+    historialOperaciones = [...historialOperaciones, historial];
+    localStorage.setItem('historial', JSON.stringify(historialOperaciones));
+}
+
+// Muestra el panel del historial
 function mostrarHistorial() {
 
     listaHistorial.classList.toggle('verHistorial');
     borrarHistorial.classList.toggle('scroll');
-
     panelHistorial.classList.toggle('mostrar');
+
+
+
+    if (historialOperaciones.length > 0) {
+
+        listaHistorial.innerHTML = '';
+        historialOperaciones.forEach(element => {
+            listaHistorial.innerHTML += `
+        
+        <li>
+            <p class="historial_item_operacion pOperacion">${element.operacion}</p>
+            <p class="historial_item_resultado pResultado">${element.resultado}</p>
+        </li>
+        `;
+        });
+    }
+
+
 }
 
+// Eliminar historial
+function eliminarHistorial() {
+    console.log(historialOperaciones.length);
+    if (historialOperaciones.length > 0) {
+
+        localStorage.removeItem('historial');
+        listaHistorial.innerHTML = `
+        <div class="historialVacio">
+            <p><i class="fas fa-box-open"></i></p>
+            <p class="vacioText">No Hay Historial</p>
+        </div>
+        `;
+        historialOperaciones = [];
+    }
+
+}
+
+
+// Muestra error de operacion
 function mostrarError() {
+
     error.classList.toggle('visible');
     setTimeout(() => {
         error.classList.toggle('visible');
@@ -272,56 +351,3 @@ dark.addEventListener('click', () => {
         }
     });
 });
-
-
-
-// //LOCAL STORAGE
-// // ------------------------------------------
-// // creamos el elemento en local storage
-
-// // localStorage.setItem('nombre');
-
-
-// // creamos este objeto para pasarlo al elemento creado 
-// // en el local storage
-
-// const producto = {
-//     operacion: "ricardo cortes",
-//     resultado: 32
-// };
-
-// let arreglo = [];
-
-// for (let index = 0; index < 20; index++) {
-//     arreglo.push(producto);
-
-// }
-// console.log(arreglo);
-// // convertimos el objeto a texto  para poderlo guardar en local storage
-// const productoString = JSON.stringify(producto);
-
-// // pasamos el objeto convertido al local storage
-// localStorage.setItem('nombre', productoString);
-
-
-// //como traerlos de vuelta
-// let productoJSON = JSON.parse(localStorage.getItem('nombre'));
-
-
-// /** con JSON.parse convertimos un objeto que está en formato texto 
-//  * lo pasamos a formato json para poder trabajarlo con  foreach o for lop
-//  */
-
-// let pOperacion = document.getElementById('pOperacion');
-// let pResultado = document.getElementById('pResultado');
-
-// // console.log(pOperacion);
-
-// console.log(productoJSON.length);
-
-// // productoJSON.forEach(element => {
-// //     console.log(element)
-// // });
-
-// // pOperacion.innerHTML = productoJSON.operacion;
-// // pResultado.innerHTML = productoJSON.resultado;
