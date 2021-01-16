@@ -251,6 +251,7 @@ function calcular() {
         resulHisto = respuesta;
     } else {
         resultado.innerHTML = (respuesta.toString().substr(0, 4));
+
         resulHisto = (respuesta.toString().substr(0, 4));
     }
 
